@@ -41,16 +41,15 @@ class TwitterClient
   end
 
   def print_s(user)
-	puts "#{@client.user(user).screen_name} no te sigue..."
+	puts "#{@client.user(user).screen_name} does not follow you..."
   end
 end
 
 user = TwitterClient.new
-friends = user.following_list
-followers = user.followers_list
-no_friendship = user.no_friendship(followers, friends)
-p no_friendship
+no_friendship = user.no_friendship(user.followers_list, user.following_list)
+
 puts "There are #{no_friendship.length} friends that don't follow you back."
 print "Unfollow friends?(y/n): " if no_friendship.length > 0
 answer = gets.chomp
 user.unfollow_friends(no_friendship) if answer.downcase == 'y'
+puts "Bye"
